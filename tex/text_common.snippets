@@ -1,0 +1,44 @@
+global !p
+
+from latex_.scopes import text
+from latex_.text import *
+
+endglobal
+
+#######################################################################
+#																																			#
+#                               Common                                #
+#																																			#
+#######################################################################
+
+# ilm -> $$
+snippet ilm "Inline Math" wA
+$${VISUAL}$1$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+snippet dm "Display Math" wA
+\[
+${VISUAL}$1
+\].$0
+endsnippet
+
+# tb3x5 -> Generate a table of 3 by 5
+pre_expand "create_table(snip)"
+snippet "tb(\d+)x(\d+)" "Generate table of *width* by *height*" wrAbi
+endsnippet
+
+# tr3 -> Add a table row of dimension 3
+pre_expand "add_row(snip)"
+snippet "tr(\d+)" "Add table row of dimension ..." wrbi
+endsnippet
+
+# temp -> a basic template
+snippet temp "Template"
+\documentclass[${1:a4paper,twoside}]{${2:article}}
+\input{preamble.tex}
+endsnippet
